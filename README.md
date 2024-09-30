@@ -16,7 +16,7 @@ Repository structure:
 Erdos-AU2024-CarSalesPricePrediction/
 │
 ├── data/                   # Data folder
-│   ├── raw/                # Raw data from Kaggle (https://www.kaggle.com/datasets/nehalbirla/vehicle-dataset-from-cardekho)
+│   ├── raw/                # Raw data from Kaggle
 │   └── processed/          # Cleaned and processed data for analysis
 │
 ├── notebooks/              # Jupyter notebooks for analysis and experimentation
