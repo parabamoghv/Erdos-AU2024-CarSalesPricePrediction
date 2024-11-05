@@ -15,7 +15,8 @@ df=df.dropna()
 units_features = ["engine", "mileage", "max_power"]
 
 cond1 = df["mileage"].apply(lambda string : string.split(" ")[1]) == "km/kg"   
-cond2 = (df["fuel"] == "CNG") | (df["fuel"] == "LPG")
+#cond2 = (df["fuel"] == "CNG") | (df["fuel"] == "LPG")
+#cond1 and cond2 are equal. That is, LPG and CNG have km/kg units.
 #There are only 1% of such values. The representation is too little. We will drop those.
 #This is only one percent of data, we can drop corresponding rows
 
@@ -27,7 +28,7 @@ def drop_units(text : str) -> float :
     return float(text.split(" ")[0])
 
 
-feature_units = {"mileage" : "kmpl", "engine" : "bhp"}  #have units kmpl and bhp
+feature_units = {"mileage" : "kmpl", "engine" : "CC", "max_power" : "bhp"}  #have units kmpl and bhp
 
 for feature in feature_units.keys():
     df[f"{feature}_{feature_units[feature]}"] = df[feature].apply(drop_units)
@@ -48,12 +49,43 @@ df['age']=2020-df['year']
 df.drop("year", axis=1)
 
 
+#Since only 0.07% of data has "Test Drive Car" category in "owner" feature, we will drop corresponding rows
+df=df[df["owner"]!="Test Drive Car"]
+#We will also combine "Third owner" and "Fourth & Above Owners" Categories under "Third and above owners"
+df["owner"]=df["owner"].replace({"Third Owner":"Third and above owners","Fourth & Above Owner":"Third and above owners"})
+
+
+df["seller_type"]=df["seller_type"].replace({"Trustmark Dealer":"Dealer"})
+
+#It is better to have to bins for number of seats >5 and seats<=5
+bins=[0,5,15] #Interval bins
+labels=["5 or less","more than 5"]
+df['seat_category'] = pd.cut(df['seats'], bins=bins, labels=labels)
+#We will keep this new column and drop seats column
+df=df.drop("seats",axis=1)
+
+
+#Now lets remove all the outliers we discussed above
+df_no_outliers_filter=(df['selling_price'] < 4000000)
+df_no_outliers_filter=df_no_outliers_filter & (df['year'] > 2000)
+df_no_outliers_filter=df_no_outliers_filter & (df['km_driven'] < 500000)
+df_no_outliers_filter=df_no_outliers_filter & (df['mileage_kmpl'] > 5) & (df['mileage_kmpl'] < 40)
+df_no_outliers_filter=df_no_outliers_filter & (df["max_power_bhp"]<300)
+
+#This removes 1.4 percent of data
+df=df[df_no_outliers_filter]
+
+#One hot encoding for categorical variables
+df=pd.get_dummies(df,drop_first=True)
+
+target_loc_entire = "data/processed/Cat_details_v3_cleaned_entire.csv" 
 target_loc_train = "data/processed/Cat_details_v3_cleaned_train.csv"
 target_loc_test = "data/processed/Cat_details_v3_cleaned_test.csv"
 
 
 df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
 
+df.to_csv(target_loc_entire)
 df_train.to_csv(target_loc_train)
 df_test.to_csv(target_loc_test)
 
