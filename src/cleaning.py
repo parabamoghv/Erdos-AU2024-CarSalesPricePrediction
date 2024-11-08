@@ -85,14 +85,14 @@ target_loc_test = "data/processed/Cat_details_v3_cleaned_test.csv"
 
 df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
 
-df.to_csv(target_loc_entire)
-df_train.to_csv(target_loc_train)
-df_test.to_csv(target_loc_test)
+# df.to_csv(target_loc_entire)
+# df_train.to_csv(target_loc_train)
+# df_test.to_csv(target_loc_test)
 
 
 
-print(df.info())
-print("Train and test files saved at data/processed")
-print(f"Train size: {len(df_train)}")
-print(f"Test size: {len(df_test)}")
-print(f"Total size: {len(df)}")
+# print(df.info())
+# print("Train and test files saved at data/processed")
+# print(f"Train size: {len(df_train)}")
+# print(f"Test size: {len(df_test)}")
+# print(f"Total size: {len(df)}")
