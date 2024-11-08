@@ -40,13 +40,13 @@ for feature in feature_units.keys():
 
 #There are too many different types of units. Some have range and some dont. Some torque values are in NM whereas other are in kgm. For some rows, one of torque or rpm is missing. Therefore, as a group we decided to drop the column. One could extract reasonable information, but that is a separate project on its own.
 df = df.drop("torque", axis = 1)
-df["brand"]=df["name"].str.split().str[0]
-df["brand"]=df["brand"].replace({"Land":"Land Rover"})
+# df["brand"]=df["name"].str.split().str[0]
+# df["brand"]=df["brand"].replace({"Land":"Land Rover"})
+df = df.drop("name", axis=1)
 
 #We can merge some categorical values with other. For example: we can merge dealer and trustmark dealer. I suggest we do this step in EDA/modeling after the data split. 
 #Knowing that the data was collected in 2020, a variable Age is added by subtracting the variabe year fron 2020.
-df['age']=2020-df['year']
-df.drop("year", axis=1)
+#df['age']=2020-df['year']
 
 
 #Since only 0.07% of data has "Test Drive Car" category in "owner" feature, we will drop corresponding rows
