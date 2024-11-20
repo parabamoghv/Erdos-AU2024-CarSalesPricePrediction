@@ -26,7 +26,7 @@ class dat:
 
         self.file_path=file_path
         self.y_name=y_name
-        self.df= pd.read_csv(file_path)
+        self.df= pd.read_csv(file_path,index_col=0)
         self.X=self.df.drop(y_name,axis=1)
         self.y=self.df[y_name]
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=ts_size,random_state=rand_state)
