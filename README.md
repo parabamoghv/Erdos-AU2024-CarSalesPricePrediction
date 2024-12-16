@@ -123,7 +123,7 @@ The model framework is displayed in the following diagram:
 ![Modeling_framework](https://github.com/user-attachments/assets/4c78a63e-e484-48b6-94c2-d4fa86745b79)
 
 As we are trying different regression models including one's that use distance metric, we use one-hot encoding for categorical features and scale the data for features using Standard scaling.
-We also divide label values by 10^5 to have it in the units of $100000.
+We also divide label values by 10^5 to have it in the units of 100000 Indian Rupees.
 
 
 ## Linear Regression (Base model)
@@ -139,34 +139,23 @@ We also check normality by plotting residuals vs theoretical quartiles of normal
 
 We can see that normality is violated for lower  for residual values below -3.
 These results indicate that we should consider other non-linear models.
-We also did more advance analysis using Linear Regression with Lasso and Ridge regularizations and using Principal Component Analysis to reduce number of feature. Using Grid Search Cross-Validation to tune model parameters,
-we found best performance with 10 principal componnets with $R^2=0.72$.
-
-## Polynomial regression 
-
-We then use polynomial regressions of different degree, and 2nd degree polynomial regression shows the best performance with RMSE of 1.12 and $R^2=0.82$.
-
-## K-Nearest Neighbours (KNN)
-
-We also used KNN models using different n numbers of neighbours. We get high variance with low n and high bias with higher n. n=5 and n=10 gave similar performance with RMSE of 1.13 and $R^2=0.81$.
-
-## Support Vector Machines (SVM)
-
-We used Grid Search Cross-Validation to tune model parameters for Support Vector Regressor. We got RMSE of 1.09 and $R^2=0.82$.
+We also did more advance analysis using Linear Regression with Lasso and Ridge regularizations and using Principal Component Analysis to reduce number of features. Using Grid Search Cross-Validation to tune model parameters,
+we found best performance with 10 principal componnets with $R^2=0.83$.
 
 ## Extreme Gradient Boosting (XGBoost)
 
 Overall best model performance was obtained wit XGBoost with RMSE of 0.87 and $R^2=0.89$. 
 The performance of different models is summarized in the following table.
 
-![Model_table](https://github.com/user-attachments/assets/e078301c-83ee-4cdc-b1f1-1cdfc3a580e2)
+![image](https://github.com/user-attachments/assets/520bdbb2-0525-4065-a651-8ff356b1b4b2)
+
 
 XGBoost outperforms SVMs and kNN because it is inherently nonlinear and robust to scale and is less sensitive to hyperparameter tuning.  
 XGBoost improves performance by combining multiple trees, which enhances it's ability to model complex patterns. It also reduces overfitting by combining multiple trees and employing shrinkage/regularization.
 
 ## SHapley Additive exPlanations (SHAP values) for describing feature importances
 
-SHAP values is a method based on cooperative game theory. SHAP shows the contribution or the importance of each feature on the prediction of the model.
+SHAP values is a method based on cooperative game theory (https://towardsdatascience.com/using-shap-values-to-explain-how-your-machine-learning-model-works-732b3f40e137). SHAP shows the contribution or the importance of each feature on the prediction of the model.
 The SHAP values for one single observation are shown in the following plot:
 
 ![Waterfall_onerow](https://github.com/user-attachments/assets/49765a99-3903-4c4b-b159-9a675c48cba7)
@@ -183,5 +172,3 @@ We can see that the three features that have the most effect on the model predic
 Following violin plot also shows the global effect of the features on model prediction. Here we can also see how higher and lower values of the feature will affect the result.
 
 ![Feature_shapvalues_violin](https://github.com/user-attachments/assets/919c84af-e08a-4873-8583-e31acca550f0)
-
-
