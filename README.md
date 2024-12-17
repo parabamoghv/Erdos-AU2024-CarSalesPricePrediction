@@ -113,7 +113,7 @@ We compare predictions of different Machine Learning models:
 - Linear Regression
 - Tree Methods
 - Support Vector Machines
-We start with linear regression model as a baseline model. We also use Elastic Net linear model from python sklearn library. Elastic Net uses combination of Lasso and Ridge regularizations. We then compare results from different regression models. We use grid search to find optimal model parameters for different regression methods. 
+We start with linear regression model as a baseline model. We then compare results from different regression models. We use grid search to find optimal model parameters for different regression methods. 
 We want to learn:
 - Which features have the most influence on sales price prediction?
 - Which regression model will provide the best performance?
@@ -128,7 +128,7 @@ We also divide label values by 10^5 to have it in the units of 100000 Indian Rup
 
 ## Linear Regression (Base model)
 
-As a baseline model we us simple linear regression (LinearRegression model from python sklearn library). We get Root Mean Squared Error (RMSE) of 1.35 and $R^2=0.73$.
+As a baseline model we us simple linear regression (LinearRegression model from python sklearn library). We get Root Mean Squared Error (RMSE) of 1.35 and $R^2=0.72$.
 We the calculate residuals (difference between predicted label values and true values) and plot it vs true values to check Homoscedasticity of data. We can see in the picture below that the assumption of homoscedasticity is violated.
 
 ![Homoscedasticity](https://github.com/user-attachments/assets/d4284939-acc0-4f3b-a16d-6dc7b780f424)
@@ -137,17 +137,18 @@ We also check normality by plotting residuals vs theoretical quartiles of normal
 
 ![Normality](https://github.com/user-attachments/assets/f2035187-12c5-48c4-a7ff-39dc8a4fb6dd)
 
-We can see that normality is violated for lower  for residual values below -3.
+We can see that normality is violated for lower for residual values below -3.
 These results indicate that we should consider other non-linear models.
-We also did more advance analysis using Linear Regression with Lasso and Ridge regularizations and using Principal Component Analysis to reduce number of features. Using Grid Search Cross-Validation to tune model parameters,
-we found best performance with 10 principal componnets with $R^2=0.83$.
+We also did more advance analysis using Principal Component Analysis to reduce number of features. Using Grid Search Cross-Validation to tune model parameters,
+we found that using PCA doesn't improve the performance of Linear Regresssion.
 
 ## Extreme Gradient Boosting (XGBoost)
 
-Overall best model performance was obtained wit XGBoost with RMSE of 0.87 and $R^2=0.89$. 
+Overall best model performance was obtained wit XGBoost with RMSE of 0.866 and $R^2=0.88$. 
 The performance of different models is summarized in the following table.
 
-![image](https://github.com/user-attachments/assets/520bdbb2-0525-4065-a651-8ff356b1b4b2)
+![image](https://github.com/user-attachments/assets/767913ad-0ab1-4d4a-981e-1d2f9345051a)
+
 
 
 XGBoost outperforms SVMs and kNN because it is inherently nonlinear and robust to scale and is less sensitive to hyperparameter tuning.  
@@ -172,3 +173,5 @@ We can see that the three features that have the most effect on the model predic
 Following violin plot also shows the global effect of the features on model prediction. Here we can also see how higher and lower values of the feature will affect the result.
 
 ![Feature_shapvalues_violin](https://github.com/user-attachments/assets/919c84af-e08a-4873-8583-e31acca550f0)
+
+
