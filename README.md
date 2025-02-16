@@ -126,7 +126,7 @@ We also divide label values by 10^5 to have it in the units of 100000 Indian Rup
 
 ## Linear Regression (Base model)
 
-As a baseline model we us simple linear regression (LinearRegression model from python sklearn library). We get Root Mean Squared Error (RMSE) of $1.35 * 10^6$ INR and $R^2=0.72$.
+As a baseline model we us simple linear regression (LinearRegression model from python sklearn library). We get Root Mean Squared Error (RMSE) of $1.35$ and $R^2=0.72$.
 We the calculate residuals (difference between predicted label values and true values) and plot it vs true values to check Homoscedasticity of data. We can see in the picture below that the assumption of homoscedasticity is violated.
 
 ![Homoscedasticity](https://github.com/user-attachments/assets/9b7a8521-33b3-46bf-8537-5f4f0d43df24)
@@ -143,7 +143,7 @@ we found that using PCA doesn't improve the performance of Linear Regresssion.
 
 ## Extreme Gradient Boosting (XGBoost)
 
-Overall best model performance was obtained wit XGBoost with RMSE of $0.866 * 10^6$ INR and $R^2=0.88$. 
+Overall best model performance was obtained wit XGBoost with RMSE of $0.866$ and $R^2=0.88$. 
 The performance of different models is summarized in the following table.
 
 ![image](https://github.com/user-attachments/assets/767913ad-0ab1-4d4a-981e-1d2f9345051a)
